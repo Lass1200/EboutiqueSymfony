@@ -1,17 +1,49 @@
-README – Projet E-boutique Symfony Description
+– Projet E-boutique Symfony
+Description
 
-Ce projet est une application web développée avec le framework Symfony, simulant une e-boutique en ligne. Elle permet aux utilisateurs de parcourir des produits, gérer un panier et passer une commande.
+Ce projet est une application web développée avec le framework Symfony.
+Il s’agit d’une e-boutique permettant aux utilisateurs de naviguer parmi des produits, gérer un panier et effectuer une commande.
 
-Fonctionnalités Authentification Connexion (Login) : OK Inscription avec contrôle de majorité (date de naissance) : Légers bugs Gestion du profil Mise à jour du profil utilisateur : OK La gestion complète des utilisateurs (admin, suppression, etc.) n’est pas implémentée (hors scope) Navigation et Produits Parcours par catégorie : OK Parcours des articles : OK Ajout d’un nouveau type d’article : Syntaxe en place mais non fonctionnelle
+Fonctionnalités
+Authentification
+Connexion (Login) : OK
+Inscription avec contrôle de majorité (date de naissance) : Légers bugs
 
-Catégories Ajout d’une nouvelle catégorie : OK
+Gestion du profil
+Mise à jour du profil utilisateur : OK
+Gestion complète des utilisateurs (administration, suppression, etc.) : Non implémentée (hors scope)
 
-Panier Mise au panier : OK Ajustement des quantités : Légers bugs Calcul du prix total : Légers bugs
+Navigation et produits
+Parcours par catégorie : OK
+Parcours des articles : OK
+Ajout d’un nouveau type d’article : Syntaxe en place mais non fonctionnelle
 
-Commande Validation de commande avec message de confirmation : OK Limitations connues Pas de gestion du stock Pas de système de paiement réel
+Catégories
+Ajout d’une nouvelle catégorie : OK
 
-Gestion utilisateur limitée (hors inscription et modification) Certains calculs du panier peuvent présenter des incohérences
+Panier
+Mise au panier : OK
+Ajustement des quantités : Légers bugs
+Calcul du prix total : Légers bugs
 
-Technologies utilisées PHP / Symfony Doctrine (ORM) Twig (templates) MySQL (base de données)
+Commande
+Validation de commande avec message de confirmation : OK
+Limitations connues
+Absence de gestion du stock
+Aucun système de paiement réel
+Gestion utilisateur limitée (hors inscription et modification)
+Possibles incohérences dans le calcul du panier
 
-Installation git clone cd projet composer install symfony server:start
+Technologies utilisées
+PHP / Symfony
+Doctrine (ORM)
+Twig (templates)
+MySQL (base de données)
+
+Installation
+git clone <repository_url>
+cd projet
+composer install
+symfony server:start
+
+Configurer ensuite le fichier .env pour la connexion à la base de données.
