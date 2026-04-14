@@ -1,0 +1,56 @@
+{% extends 'layout/admin.html.twig' %}
+
+{% block title %}Commande #{{ commande.id }} — Admin{% endblock %}
+
+{% block main %}
+    <h1>Commande #{{ commande.id }}</h1>
+    <p><a href="{{ path('app_commande_index') }}">← Liste des commandes</a></p>
+
+    <table class="table" style="max-width: 520px;">
+        <tbody>
+            <tr><th>Date</th><td>{{ commande.dateCommande ? commande.dateCommande|date('Y-m-d H:i:s') : '' }}</td></tr>
+            <tr><th>Client</th><td>{{ commande.user ? commande.user.email : '—' }}</td></tr>
+            <tr><th>Statut</th><td>{{ commande.statut }}</td></tr>
+            <tr><th>Frais de port</th><td>{{ commande.fraisPort }} €</td></tr>
+            <tr><th>Montant total</th><td>{{ commande.montantTotal }} €</td></tr>
+        </tbody>
+    </table>
+
+    <h2>Lignes</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Qté</th>
+                <th>Prix unitaire</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ligne in commande.ligneCommandes %}
+                <tr>
+                    <td>{{ ligne.produit ? ligne.produit.nom : '—' }}</td>
+                    <td>{{ ligne.quantite }}</td>
+                    <td>{{ ligne.prixUnitaire }} €</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="3">Aucune ligne.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Changer le statut</h2>
+    <form method="post" action="{{ path('app_commande_statut', {id: commande.id}) }}" style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
+        <input type="hidden" name="_token" value="{{ csrf_token('statut' ~ commande.id) }}">
+        <select name="statut" class="btn" style="padding:0.35rem;">
+            <option value="en_attente" {{ commande.statut == 'en_attente' ? 'selected' : '' }}>en_attente</option>
+            <option value="payee" {{ commande.statut == 'payee' ? 'selected' : '' }}>payee</option>
+            <option value="expediee" {{ commande.statut == 'expediee' ? 'selected' : '' }}>expediee</option>
+            <option value="annulee" {{ commande.statut == 'annulee' ? 'selected' : '' }}>annulee</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+    </form>
+
+    <p style="margin-top:2rem;">
+        {{ include('commande/_delete_form.html.twig') }}
+    </p>
+{% endblock %}

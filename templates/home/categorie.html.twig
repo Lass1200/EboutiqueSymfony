@@ -1,0 +1,21 @@
+{% extends 'layout/front.html.twig' %}
+
+{% block title %}{{ categorie.nom }} — Sneakers Shop{% endblock %}
+
+{% block main %}
+    <p class="muted"><a href="{{ path('app_home') }}">← Accueil</a></p>
+    <h1>{{ categorie.nom }}</h1>
+
+    <div class="grid-products">
+        {% for produit in produits %}
+            <article class="card">
+                <div class="product-card__media">{% include 'partials/_produit_image.html.twig' %}</div>
+                <h3 style="margin: 0 0 0.5rem; font-size: 1rem;"><a href="{{ path('app_produit_front', {id: produit.id}) }}">{{ produit.nom }}</a></h3>
+                <p class="price">{{ produit.prix }} €</p>
+                <p><a class="btn btn-primary" href="{{ path('app_panier_ajouter', {id: produit.id}) }}">Ajouter au panier</a></p>
+            </article>
+        {% else %}
+            <p class="muted">Aucun produit dans cette catégorie.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

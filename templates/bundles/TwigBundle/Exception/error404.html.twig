@@ -1,0 +1,9 @@
+{% extends 'layout/front.html.twig' %}
+
+{% block title %}Page introuvable — Sneakers Shop{% endblock %}
+
+{% block main %}
+    <h1>404 — Page introuvable</h1>
+    <p class="muted">L’URL demandée n’existe pas ou la ressource a été déplacée.</p>
+    <p><a class="btn btn-primary" href="{{ path('app_home') }}">Retour à l’accueil</a></p>
+{% endblock %}

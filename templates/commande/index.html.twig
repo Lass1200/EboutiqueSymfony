@@ -1,0 +1,35 @@
+{% extends 'layout/admin.html.twig' %}
+
+{% block title %}Commandes (admin) — Sneakers Shop{% endblock %}
+
+{% block main %}
+    <h1>Commandes</h1>
+    <p><a href="{{ path('app_admin') }}">← Tableau de bord admin</a></p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Client</th>
+                <th>Statut</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for commande in commandes %}
+                <tr>
+                    <td>{{ commande.id }}</td>
+                    <td>{{ commande.dateCommande ? commande.dateCommande|date('Y-m-d H:i') : '' }}</td>
+                    <td>{{ commande.user ? commande.user.email : '—' }}</td>
+                    <td>{{ commande.statut }}</td>
+                    <td>{{ commande.montantTotal }} €</td>
+                    <td><a href="{{ path('app_commande_show', {id: commande.id}) }}">Détail</a></td>
+                </tr>
+            {% else %}
+                <tr><td colspan="6">Aucune commande.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% set cats = categories|default([]) %}
+<header class="site-header">
+    <div class="site-header__inner">
+        <a class="logo" href="{{ path('app_home') }}">Sneakers Shop</a>
+        <nav class="nav-main">
+            <a href="{{ path('app_home') }}">Accueil</a>
+            {% for c in cats %}
+                <a href="{{ path('app_categorie_front', {slug: c.slug}) }}">{{ c.nom }}</a>
+            {% endfor %}
+            <a href="{{ path('app_panier') }}">Panier</a>
+            {% if app.user %}
+                <a href="{{ path('app_commande_historique') }}">Mes commandes</a>
+                <a href="{{ path('app_profil') }}">Mon profil</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('app_admin') }}">Admin</a>
+                {% endif %}
+                <a href="{{ logout_path() }}">Déconnexion</a>
+            {% else %}
+                <a href="{{ path('app_login') }}">Connexion</a>
+                <a href="{{ path('app_register') }}">Inscription</a>
+            {% endif %}
+        </nav>
+    </div>
+</header>

@@ -7,6 +7,9 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    app.mailer_from: 'noreply@sneakers-shop.local'
+    # Email après commande : pas exigé dans le ch. « sécurité » du cours ; mets true + un vrai MAILER_DSN pour tester le Mailer.
+    app.send_order_email: false
 
 services:
     # default configuration for services in *this* file

@@ -1,0 +1,34 @@
+{% extends 'layout/front.html.twig' %}
+
+{% block title %}Accueil — Sneakers Shop{% endblock %}
+
+{% block main %}
+    <h1>Bienvenue</h1>
+    <p class="muted">Parcourez les catégories ou ajoutez des modèles au panier.</p>
+
+    <h2>Catégories</h2>
+    <div class="grid-products" style="margin-bottom: 2rem;">
+        {% for c in categories %}
+            <div class="card">
+                <strong>{{ c.nom }}</strong>
+                <p class="muted"><a href="{{ path('app_categorie_front', {slug: c.slug}) }}">Voir les produits</a></p>
+            </div>
+        {% else %}
+            <p class="muted">Aucune catégorie (chargez les fixtures : <code>php bin/console doctrine:fixtures:load</code>).</p>
+        {% endfor %}
+    </div>
+
+    <h2>Tous les produits</h2>
+    <div class="grid-products">
+        {% for produit in produits %}
+            <article class="card">
+                <div class="product-card__media">{% include 'partials/_produit_image.html.twig' %}</div>
+                <h3 style="margin: 0 0 0.5rem; font-size: 1rem;"><a href="{{ path('app_produit_front', {id: produit.id}) }}">{{ produit.nom }}</a></h3>
+                <p class="price">{{ produit.prix }} €</p>
+                <p><a class="btn btn-primary" href="{{ path('app_panier_ajouter', {id: produit.id}) }}">Ajouter au panier</a></p>
+            </article>
+        {% else %}
+            <p class="muted">Aucun produit.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

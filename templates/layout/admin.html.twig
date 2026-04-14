@@ -1,0 +1,30 @@
+{# =============================================================================
+  NIVEAU 2 — LAYOUT « ADMIN » (back-office)
+
+  Même idée que layout/front.html.twig, mais avec une barre dédiée admin
+  (liens rapides CRUD + retour site). Les pages sous /admin/… étendent celui-ci.
+
+  Chaîne : templates/…/index.html.twig  →  layout/admin.html.twig  →  base.html.twig
+============================================================================= #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <header class="site-header site-header--admin">
+        <div class="site-header__inner">
+            <span class="logo">Admin — Sneakers Shop</span>
+            <nav class="nav-main">
+                <a href="{{ path('app_home') }}">← Site public</a>
+                <a href="{{ path('app_admin') }}">Tableau de bord</a>
+                <a href="{{ path('app_commande_index') }}">Commandes</a>
+                <a href="{{ path('app_produit_index') }}">Produits</a>
+                <a href="{{ path('app_categorie_index') }}">Catégories</a>
+                <a href="{{ path('app_ligne_commande_index') }}">Lignes</a>
+                {% if app.user %}<a href="{{ logout_path() }}">Déconnexion</a>{% endif %}
+            </nav>
+        </div>
+    </header>
+    <main>
+        {% include 'partials/_flashes.html.twig' %}
+        {% block main %}{% endblock %}
+    </main>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'layout/front.html.twig' %}
+
+{% block title %}Commande #{{ commande.id }} — Sneakers Shop{% endblock %}
+
+{% block main %}
+    <p class="muted"><a href="{{ path('app_commande_historique') }}">← Mes commandes</a></p>
+    <h1>Commande #{{ commande.id }}</h1>
+
+    <table class="table" style="max-width: 520px;">
+        <tbody>
+            <tr><th>Date</th><td>{{ commande.dateCommande ? commande.dateCommande|date('d/m/Y H:i') : '—' }}</td></tr>
+            <tr><th>Statut</th><td>{{ commande.statut }}</td></tr>
+            <tr><th>Frais de port</th><td>{{ commande.fraisPort }} €</td></tr>
+            <tr><th>Total</th><td class="price">{{ commande.montantTotal }} €</td></tr>
+        </tbody>
+    </table>
+
+    <h2>Articles</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Qté</th>
+                <th>Prix unitaire</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ligne in commande.ligneCommandes %}
+                <tr>
+                    <td>
+                        {% if ligne.produit %}
+                            <a href="{{ path('app_produit_front', {id: ligne.produit.id}) }}">{{ ligne.produit.nom }}</a>
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+                    <td>{{ ligne.quantite }}</td>
+                    <td>{{ ligne.prixUnitaire }} €</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="3">Aucune ligne.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

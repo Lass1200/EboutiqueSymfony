@@ -1,0 +1,40 @@
+{% extends 'layout/admin.html.twig' %}
+
+{% block title %}Lignes de commande (admin){% endblock %}
+
+{% block main %}
+    <h1>Lignes de commande</h1>
+    <p><a href="{{ path('app_admin') }}">← Admin</a></p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Commande</th>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix unitaire</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ligne_commande in ligne_commandes %}
+                <tr>
+                    <td>{{ ligne_commande.id }}</td>
+                    <td>#{{ ligne_commande.commande ? ligne_commande.commande.id : '—' }}</td>
+                    <td>{{ ligne_commande.produit ? ligne_commande.produit.nom : '—' }}</td>
+                    <td>{{ ligne_commande.quantite }}</td>
+                    <td>{{ ligne_commande.prixUnitaire }} €</td>
+                    <td>
+                        <a href="{{ path('app_ligne_commande_show', {id: ligne_commande.id}) }}">voir</a>
+                        <a href="{{ path('app_ligne_commande_edit', {id: ligne_commande.id}) }}">modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="6">Aucune ligne.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p><a href="{{ path('app_ligne_commande_new') }}">Ajouter une ligne (manuel)</a></p>
+{% endblock %}

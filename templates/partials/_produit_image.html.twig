@@ -1,0 +1,20 @@
+{# URL absolue, ou chemin relatif à public/ ; tout fichier sans préfixe images/ est cherché dans public/images/. #}
+{% set src = null %}
+{% if produit.image %}
+    {% if produit.image starts with 'http://' or produit.image starts with 'https://' %}
+        {% set src = produit.image %}
+    {% else %}
+        {% set p = produit.image|trim %}
+        {% if p starts with '/' %}
+            {% set p = p|slice(1) %}
+        {% endif %}
+        {% if not (p starts with 'images/') %}
+            {% set p = 'images/' ~ p %}
+        {% endif %}
+        {% set src = asset(p) %}
+    {% endif %}
+{% endif %}
+{% if src is null %}
+    {% set src = asset('images/placeholder.svg') %}
+{% endif %}
+<img src="{{ src }}" alt="{{ produit.nom }}" class="product-thumb" loading="lazy" width="400" height="280">

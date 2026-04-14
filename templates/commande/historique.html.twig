@@ -1,0 +1,35 @@
+{% extends 'layout/front.html.twig' %}
+
+{% block title %}Mes commandes — Sneakers Shop{% endblock %}
+
+{% block main %}
+    <h1>Mes commandes</h1>
+
+    {% if commandes is empty %}
+        <p class="muted">Vous n’avez pas encore passé de commande.</p>
+        <p><a href="{{ path('app_home') }}">Voir les produits</a></p>
+    {% else %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Date</th>
+                    <th>Statut</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in commandes %}
+                    <tr>
+                        <td>#{{ c.id }}</td>
+                        <td>{{ c.dateCommande ? c.dateCommande|date('d/m/Y H:i') : '' }}</td>
+                        <td>{{ c.statut }}</td>
+                        <td>{{ c.montantTotal }} €</td>
+                        <td><a href="{{ path('app_commande_client_show', {id: c.id}) }}">Détail</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

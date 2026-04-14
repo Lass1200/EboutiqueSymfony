@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Commande #{{ commande.id }}</title>
+</head>
+<body style="font-family: system-ui, sans-serif; line-height: 1.5; color: #111;">
+    <p>Bonjour,</p>
+    <p>Nous avons bien enregistré votre commande <strong>n°{{ commande.id }}</strong> sur Sneakers Shop.</p>
+    <p><strong>Total :</strong> {{ commande.montantTotal }} € (frais de port : {{ commande.fraisPort }} €)</p>
+    <p><strong>Statut :</strong> {{ commande.statut }}</p>
+    <hr>
+    <p style="font-size: 0.9rem; color: #555;">Message automatique — ne pas répondre à cet email.</p>
+</body>
+</html>

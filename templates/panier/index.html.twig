@@ -1,0 +1,57 @@
+{% extends 'layout/front.html.twig' %}
+
+{% block title %}Panier — Sneakers Shop{% endblock %}
+
+{% block main %}
+    <h1>Panier</h1>
+
+    {% if panierData is empty %}
+        <p class="muted">Votre panier est vide.</p>
+        <p><a href="{{ path('app_home') }}">Continuer les achats</a></p>
+    {% else %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width:100px;">Visuel</th>
+                    <th>Produit</th>
+                    <th>Prix unitaire</th>
+                    <th>Quantité</th>
+                    <th>Sous-total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ligne in panierData %}
+                    <tr>
+                        <td style="max-width:100px;">{% include 'partials/_produit_image.html.twig' with {produit: ligne.produit} %}</td>
+                        <td><a href="{{ path('app_produit_front', {id: ligne.produit.id}) }}">{{ ligne.produit.nom }}</a></td>
+                        <td>{{ ligne.produit.prix }} €</td>
+                        <td>
+                            <form method="post" action="{{ path('app_panier_modifier', {id: ligne.produit.id}) }}" style="display:flex; gap:0.35rem; align-items:center;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('panier_modifier') }}">
+                                <input type="number" name="quantite" value="{{ ligne.quantite }}" min="0" style="width:4rem;">
+                                <button type="submit" class="btn">OK</button>
+                            </form>
+                        </td>
+                        <td>{{ ligne.sousTotal|number_format(2, ',', ' ') }} €</td>
+                        <td><a href="{{ path('app_panier_supprimer', {id: ligne.produit.id}) }}">Retirer</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p><strong>Sous-total :</strong> {{ total|number_format(2, ',', ' ') }} €</p>
+        <p><strong>Frais de port :</strong> {{ fraisPort|number_format(2, ',', ' ') }} € {% if fraisPort == 0 %}<span class="muted">(offerts dès 100 €)</span>{% endif %}</p>
+        <p class="price"><strong>Total :</strong> {{ totalAvecPort|number_format(2, ',', ' ') }} €</p>
+
+        <p style="margin-top:1rem;">
+            <a class="btn" href="{{ path('app_home') }}">Continuer les achats</a>
+            <a class="btn" href="{{ path('app_panier_vider') }}">Vider le panier</a>
+            {% if app.user %}
+                <a class="btn btn-primary" href="{{ path('app_commande_recap') }}">Valider la commande</a>
+            {% else %}
+                <span class="muted">Pour commander, </span><a href="{{ path('app_login') }}">connectez-vous</a><span class="muted"> ou </span><a href="{{ path('app_register') }}">créez un compte</a>.
+            {% endif %}
+        </p>
+    {% endif %}
+{% endblock %}

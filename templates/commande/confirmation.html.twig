@@ -1,0 +1,14 @@
+{% extends 'layout/front.html.twig' %}
+
+{% block title %}Commande confirmée — Sneakers Shop{% endblock %}
+
+{% block main %}
+    <h1>Merci !</h1>
+    <p>Votre commande <strong>#{{ commande.id }}</strong> a bien été enregistrée (statut : {{ commande.statut }}).</p>
+    <p class="muted">Montant total : <strong>{{ commande.montantTotal }} €</strong> (frais de port : {{ commande.fraisPort }} €)</p>
+    <p>
+        <a class="btn btn-primary" href="{{ path('app_home') }}">Retour à la boutique</a>
+        <a class="btn" href="{{ path('app_commande_client_show', {id: commande.id}) }}">Détail de la commande</a>
+        <a class="btn" href="{{ path('app_commande_historique') }}">Mes commandes</a>
+    </p>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'layout/admin.html.twig' %}
+
+{% block title %}Admin — Sneakers Shop{% endblock %}
+
+{% block main %}
+    <h1>Tableau de bord</h1>
+
+    <div class="grid-products" style="margin-bottom: 2rem;">
+        <div class="card">
+            <strong>Commandes</strong>
+            <p class="price" style="font-size:1.5rem;">{{ nbCommandes }}</p>
+            <p><a href="{{ path('app_commande_index') }}">Gérer les commandes</a></p>
+        </div>
+        <div class="card">
+            <strong>Produits</strong>
+            <p class="price" style="font-size:1.5rem;">{{ nbProduits }}</p>
+            <p><a href="{{ path('app_produit_index') }}">CRUD produits</a></p>
+        </div>
+        <div class="card">
+            <strong>Catégories</strong>
+            <p class="price" style="font-size:1.5rem;">{{ nbCategories }}</p>
+            <p><a href="{{ path('app_categorie_index') }}">CRUD catégories</a></p>
+        </div>
+        <div class="card">
+            <strong>Utilisateurs</strong>
+            <p class="price" style="font-size:1.5rem;">{{ nbUsers }}</p>
+            <p class="muted">Gestion des comptes : à venir (phpMyAdmin / EasyAdmin).</p>
+        </div>
+    </div>
+
+    <h2>Dernières commandes</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Client</th>
+                <th>Statut</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in dernieresCommandes %}
+                <tr>
+                    <td><a href="{{ path('app_commande_show', {id: c.id}) }}">{{ c.id }}</a></td>
+                    <td>{{ c.dateCommande ? c.dateCommande|date('d/m/Y H:i') : '' }}</td>
+                    <td>{{ c.user ? c.user.email : '—' }}</td>
+                    <td>{{ c.statut }}</td>
+                    <td>{{ c.montantTotal }} €</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="5">Aucune commande.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p style="margin-top:1rem;"><a href="{{ path('app_home') }}">← Retour au site</a></p>
+{% endblock %}

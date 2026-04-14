@@ -1,0 +1,42 @@
+{% extends 'layout/front.html.twig' %}
+
+{% block title %}Récapitulatif — Sneakers Shop{% endblock %}
+
+{% block main %}
+    <h1>Récapitulatif de commande</h1>
+
+    <p class="muted">Livraison à l’adresse enregistrée sur votre profil (modifiable dans « Mon profil »).</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Prix</th>
+                <th>Qté</th>
+                <th>Sous-total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ligne in panierData %}
+                <tr>
+                    <td>{{ ligne.produit.nom }}</td>
+                    <td>{{ ligne.produit.prix }} €</td>
+                    <td>{{ ligne.quantite }}</td>
+                    <td>{{ ligne.sousTotal|number_format(2, ',', ' ') }} €</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p><strong>Sous-total :</strong> {{ total|number_format(2, ',', ' ') }} €</p>
+    <p><strong>Frais de port :</strong> {{ fraisPort|number_format(2, ',', ' ') }} €</p>
+    <p class="price"><strong>Total à payer :</strong> {{ totalAvecPort|number_format(2, ',', ' ') }} €</p>
+
+    <p style="margin-top:1.5rem;">
+        <a class="btn" href="{{ path('app_panier') }}">← Retour au panier</a>
+        <form method="post" action="{{ path('app_commande_confirmer') }}" style="display:inline;">
+            <input type="hidden" name="_token" value="{{ csrf_token('commande_confirmer') }}">
+            <button type="submit" class="btn btn-primary">Confirmer et payer (simulation)</button>
+        </form>
+    </p>
+{% endblock %}

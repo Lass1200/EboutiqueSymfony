@@ -1,0 +1,20 @@
+{% extends 'layout/front.html.twig' %}
+
+{% block title %}Mon profil — Sneakers Shop{% endblock %}
+
+{% block main %}
+    <h1>Mon profil</h1>
+    <p class="muted">Ces informations peuvent servir pour la livraison.</p>
+
+    <div class="form-card">
+        {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_row(form.nom) }}
+            {{ form_row(form.prenom) }}
+            {{ form_row(form.adresse) }}
+            {{ form_row(form.codePostal) }}
+            {{ form_row(form.ville) }}
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
